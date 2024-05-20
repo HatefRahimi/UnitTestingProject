@@ -1,0 +1,32 @@
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Ignore NuGet packages
+packages/
+
+# Ignore VS Code directories
+.vscode/
+
+# Ignore Visual Studio directories
+.vs/
+
+# Ignore log files
+*.log
+
+# Ignore publish output
+/publish/
+
+# Ignore database files
+*.mdf
+*.ldf
+
+# Ignore DotNet SDK files
+.dotnet/
