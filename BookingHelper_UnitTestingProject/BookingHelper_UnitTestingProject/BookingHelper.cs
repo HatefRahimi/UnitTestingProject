@@ -4,15 +4,13 @@ namespace BookingHelper_UnitTestingProject
 {
     public static class BookingHelper
     {
-        public static string OverlappingBookingsExist(Booking booking)
+    
+        public static string OverlappingBookingsExist(Booking booking, IBookingRepository bookingRepository)
         {
             if (booking.Status == "Cancelled")
                 return string.Empty;
-            var unitOfWork = new UnitOfWork();
-            var bookings =
-                unitOfWork.Query<Booking>()
-                    .Where(
-                        b => b.Id != booking.Id && b.Status != "Cancelled");
+
+           var bookings = bookingRepository.GetActiveBooking(booking.Id);
 
             var overlappingBooking =
                 bookings.FirstOrDefault(
