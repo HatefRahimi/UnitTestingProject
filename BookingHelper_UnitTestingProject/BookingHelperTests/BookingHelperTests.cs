@@ -24,15 +24,12 @@ namespace UnitTestingProject_UnitTests
                 Reference = "Ref2"
 
             };
-
              _repository = new Mock<IBookingRepository>();
             _repository.Setup(r => r.GetActiveBooking(1)).Returns(new List<Booking>
             {
                 _booking
             }.AsQueryable());
-
         }
-
 
         [Test]
         public void BookingStartsAndFinishedBeforeAnExistingBooking_ReturnEmptyString()
@@ -50,6 +47,38 @@ namespace UnitTestingProject_UnitTests
             Assert.That(result, Is.Empty);
         }
 
+
+        [Test]
+        public void BookingStartsBeforeAndFinishesInTheMiddleExistingBooking_ReturnExistingBookingsReference()
+        {
+            // Act
+            var result = BookingHelper.OverlappingBookingsExist(new Booking()
+            {
+                Id = 1,
+                ArrivalDate = Before(_booking.ArrivalDate, days: 2),
+                DepartureDate = After(_booking.ArrivalDate),
+                Reference = "Ref1"
+            }, _repository.Object);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(_booking.Reference));
+        }
+
+        [Test]
+        public void BookingStartsBeforeAndFinishesAfterAnExistingBooking_ReturnExistingBookingsReference()
+        {
+            // Act
+            var result = BookingHelper.OverlappingBookingsExist(new Booking()
+            {
+                Id = 1,
+                ArrivalDate = Before(_booking.ArrivalDate, days: 2),
+                DepartureDate = After(_booking.DepartureDate),
+                Reference = "Ref1"
+            }, _repository.Object);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(_booking.Reference));
+        }
         private DateTime After(DateTime dateTime)
         {
             return dateTime.AddDays(1);
