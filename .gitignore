@@ -30,3 +30,12 @@ packages/
 
 # Ignore DotNet SDK files
 .dotnet/
+
+BookingHelper_UnitTestingProject/BookingHelperTests/Properties/
+BookingHelper_UnitTestingProject/BookingHelperTests/UnitTestingProject_UnitTests.csproj
+BookingHelper_UnitTestingProject/BookingHelperTests/packages.config
+BookingHelper_UnitTestingProject/BookingHelper_UnitTestingProject.sln
+BookingHelper_UnitTestingProject/BookingHelper_UnitTestingProject/App.config
+BookingHelper_UnitTestingProject/BookingHelper_UnitTestingProject/BookingHelper_UnitTestingProject.csproj
+BookingHelper_UnitTestingProject/BookingHelper_UnitTestingProject/Properties/
+
