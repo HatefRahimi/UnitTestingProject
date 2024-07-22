@@ -79,7 +79,6 @@ namespace UnitTestingProject_UnitTests
             Assert.That(result, Is.EqualTo(_booking.Reference));
         }
 
-
         [Test]
         public void BookingStartsAndFinishesInTheMiddleOfAnExistingBooking_ReturnExistingBookingsReference()
         {
