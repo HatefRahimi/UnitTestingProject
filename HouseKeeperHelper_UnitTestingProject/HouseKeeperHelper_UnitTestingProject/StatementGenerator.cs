@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HouseKeeperHelper_UnitTestingProject
 {
-    public interface IStatementGenerator
-    {
-        string SaveStatement(int housekeeperOid, string housekeeperName, DateTime statementDate);
-    }
 
-    public class StatementGenerator : IStatementGenerator
+    public class StatementGenerator
     {
         public string SaveStatement(int housekeeperOid, string housekeeperName, DateTime statementDate)
         {

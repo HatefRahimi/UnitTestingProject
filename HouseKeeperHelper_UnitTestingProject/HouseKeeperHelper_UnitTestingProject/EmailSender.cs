@@ -5,12 +5,8 @@ using System.IO;
 
 namespace HouseKeeperHelper_UnitTestingProject
 {
-    public interface IEmailSender
-    {
-        void EmailFile(string emailAddress, string emailBody, string filename, string subject);
-    }
 
-    public class EmailSender : IEmailSender
+    public class EmailSender 
     {
         public void EmailFile(string emailAddress, string emailBody, string filename, string subject)
         {
