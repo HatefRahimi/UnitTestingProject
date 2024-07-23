@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace HouseKeeperHelper_UnitTestingProject
 {
-
     public class UnitOfWork
     {
         public IQueryable<T> Query<T>()
