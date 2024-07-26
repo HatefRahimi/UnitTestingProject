@@ -46,38 +46,13 @@ namespace UnitTestingProject_UnitTests
             _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate));
         }
 
-        [Test]
-        public void SendStatementEmails_EmailIsNull_ShouldNotGenerateStatements()
+        [TestCase(null)]
+        [TestCase(" ")]
+        [TestCase("")]
+        public void SendStatementEmails_EmailIsNullEmptyOrSpaced_ShouldNotGenerateStatements(string email)
         {
             // Arrange 
-            _houseKeeper.Email = null;
-
-            // Act
-            _service.SendStatementEmails(_statementDate);
-
-            // Assert
-            _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate), Times.Never);
-        }
-
-        [Test]
-        public void SendStatementEmails_EmailIsWhiteSpace_ShouldNotGenerateStatements()
-        {
-            // Arrange 
-            _houseKeeper.Email = " ";
-
-            // Act
-            _service.SendStatementEmails(_statementDate);
-
-            // Assert
-            _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate), Times.Never);
-        }
-
-
-        [Test]
-        public void SendStatementEmails_EmailIsEmpty_ShouldNotGenerateStatements()
-        {
-            // Arrange 
-            _houseKeeper.Email = " ";
+            _houseKeeper.Email = email;
 
             // Act
             _service.SendStatementEmails(_statementDate);
