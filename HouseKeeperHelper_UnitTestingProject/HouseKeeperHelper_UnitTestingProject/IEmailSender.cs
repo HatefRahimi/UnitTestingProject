@@ -6,7 +6,11 @@ using System.IO;
 namespace HouseKeeperHelper_UnitTestingProject
 {
 
-    public class EmailSender 
+    public interface IEmailSender
+    {
+        void EmailFile(string emailAddress, string emailBody, string filename, string subject);
+    }
+    public class EmailSender: IEmailSender
     {
         public void EmailFile(string emailAddress, string emailBody, string filename, string subject)
         {
@@ -37,6 +41,5 @@ namespace HouseKeeperHelper_UnitTestingProject
 
             File.Delete(filename);
         }
-
     }
 }

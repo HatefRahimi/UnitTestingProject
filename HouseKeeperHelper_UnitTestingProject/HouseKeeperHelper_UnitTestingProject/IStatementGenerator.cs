@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace HouseKeeperHelper_UnitTestingProject
 {
 
-    public class StatementGenerator
+    public interface IStatementGenerator
+    {
+        string SaveStatement(int housekeeperOid, string housekeeperName, DateTime statementDate);
+    }
+    public class StatementGenerator: IStatementGenerator
     {
         public string SaveStatement(int housekeeperOid, string housekeeperName, DateTime statementDate)
         {
@@ -23,6 +31,5 @@ namespace HouseKeeperHelper_UnitTestingProject
 
             return filename;
         }
-
     }
 }

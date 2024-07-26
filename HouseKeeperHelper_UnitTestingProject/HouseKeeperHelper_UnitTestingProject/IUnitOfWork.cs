@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace HouseKeeperHelper_UnitTestingProject
 {
+    public interface IUnitOfWork
+    {
+        IQueryable<T> Query<T>();
+    }
 
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         public IQueryable<T> Query<T>()
         {
