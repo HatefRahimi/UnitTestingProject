@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HouseKeeperHelper_UnitTestingProject", "HouseKeeperHelper_UnitTestingProject\HouseKeeperHelper_UnitTestingProject.csproj", "{268DC0AB-5DB7-4C1C-9DDE-BE0C93BEDC69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingProject_UnitTests", "UnitTestingProject_UnitTests\UnitTestingProject_UnitTests.csproj", "{5BE0803A-3143-4360-89A2-A3E7F0DB7103}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{268DC0AB-5DB7-4C1C-9DDE-BE0C93BEDC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{268DC0AB-5DB7-4C1C-9DDE-BE0C93BEDC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{268DC0AB-5DB7-4C1C-9DDE-BE0C93BEDC69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE0803A-3143-4360-89A2-A3E7F0DB7103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE0803A-3143-4360-89A2-A3E7F0DB7103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE0803A-3143-4360-89A2-A3E7F0DB7103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE0803A-3143-4360-89A2-A3E7F0DB7103}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

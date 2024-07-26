@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace HouseKeeperHelper_UnitTestingProject
 {
-    public  class HousekeeperHelper
+    public  class HousekeeperHelperService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IStatementGenerator _statementGenerator;
         private readonly IEmailSender _emailSender;
         private readonly IXtraMessageBox _xtraMessageBox;
 
-        public HousekeeperHelper(IUnitOfWork unitOfWork, IStatementGenerator statementGenerator, IEmailSender emailSender, IXtraMessageBox xtraMessageBox)
+        public HousekeeperHelperService(IUnitOfWork unitOfWork, IStatementGenerator statementGenerator, IEmailSender emailSender, IXtraMessageBox xtraMessageBox)
         {
             _unitOfWork = unitOfWork;
             _statementGenerator = statementGenerator;
@@ -26,7 +26,7 @@ namespace HouseKeeperHelper_UnitTestingProject
 
 
 
-        public bool SendStatementEmails(DateTime statementDate, IStatementGenerator statementGenerator, IEmailSender emailSender)
+        public bool SendStatementEmails(DateTime statementDate)
         {
             var housekeepers = _unitOfWork.Query<Housekeeper>();
 
@@ -35,7 +35,7 @@ namespace HouseKeeperHelper_UnitTestingProject
                 if (housekeeper.Email == null)
                     continue;
 
-                var statementFilename = statementGenerator.SaveStatement(housekeeper.Oid, housekeeper.FullName, statementDate);
+                var statementFilename = _statementGenerator.SaveStatement(housekeeper.Oid, housekeeper.FullName, statementDate);
 
                 if (string.IsNullOrWhiteSpace(statementFilename))
                     continue;
@@ -45,7 +45,7 @@ namespace HouseKeeperHelper_UnitTestingProject
 
                 try
                 {
-                    emailSender.EmailFile(emailAddress, emailBody, statementFilename,
+                    _emailSender.EmailFile(emailAddress, emailBody, statementFilename,
                         string.Format("Sandpiper Statement {0:yyyy-MM} {1}", statementDate, housekeeper.FullName));
                 }
                 catch (Exception e)
