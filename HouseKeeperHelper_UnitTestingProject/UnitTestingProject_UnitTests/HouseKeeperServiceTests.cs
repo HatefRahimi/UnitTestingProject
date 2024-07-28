@@ -56,6 +56,11 @@ namespace UnitTestingProject_UnitTests
             _service.SendStatementEmails(_statementDate);
 
             // Assert
+            VerifyStatementGenerated();
+        }
+
+        private void VerifyStatementGenerated()
+        {
             _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate));
         }
 
@@ -72,18 +77,21 @@ namespace UnitTestingProject_UnitTests
 
             // Times can be passed to Verify as the second argument. In this case, it indicates that this should never be called.
             // Assert
-            _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate), Times.Never);
+            VerifyStatementNotGenerated();
         }
+
         [Test]
         public void SendStatementEmails_WhenCalled_EmailTheStatement()
         {
-            // Arrange 
-            _statementGenerator.Setup(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate)).Returns(_statementFileName);
-
             // Act
             _service.SendStatementEmails(_statementDate);
 
             // Assert
+            VerifyEmailSent();
+        }
+
+        private void VerifyEmailSent()
+        {
             _emailSender.Verify(x => x.EmailFile(_houseKeeper.Email, _houseKeeper.StatementEmailBody, _statementFileName, It.IsAny<string>()));
         }
 
@@ -104,8 +112,17 @@ namespace UnitTestingProject_UnitTests
             _service.SendStatementEmails(_statementDate);
 
             // Assert
+            VerifyEmailNotSent();
+        }
+
+        private void VerifyEmailNotSent()
+        {
             _emailSender.Verify(x => x.EmailFile(_houseKeeper.Email, _houseKeeper.StatementEmailBody, _statementFileName, It.IsAny<string>()), Times.Never);
         }
 
+        private void VerifyStatementNotGenerated()
+        {
+            _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate), Times.Never);
+        }
     }
 }
