@@ -47,6 +47,7 @@ namespace UnitTestingProject_UnitTests
             _emailSender = new Mock<IEmailSender>();
             _messageBox = new Mock<IXtraMessageBox>();
             _service= new HousekeeperHelperService(unitOfWork.Object, _statementGenerator.Object, _emailSender.Object, _messageBox.Object);
+
         }
 
         [Test]
@@ -59,10 +60,20 @@ namespace UnitTestingProject_UnitTests
             VerifyStatementGenerated();
         }
 
-        private void VerifyStatementGenerated()
+        [Test]
+        public void SendStatementEmails_EmailSendingFails_ShouldDisplayAMessage()
         {
-            _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate));
+            // Arrange
+            _emailSender.Setup(x => x.EmailFile(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())
+                );
+            // Act
+            _service.SendStatementEmails(_statementDate);
+
+            // Assert
+            _messageBox.Verify(x => x.Show(It.IsAny<string>(),It.IsAny<string>(), MessageBoxButtons.OK));
         }
+
+
 
         [TestCase(null)]
         [TestCase(" ")]
@@ -90,11 +101,7 @@ namespace UnitTestingProject_UnitTests
             VerifyEmailSent();
         }
 
-        private void VerifyEmailSent()
-        {
-            _emailSender.Verify(x => x.EmailFile(_houseKeeper.Email, _houseKeeper.StatementEmailBody, _statementFileName, It.IsAny<string>()));
-        }
-
+      
         [TestCase(null)]
         [TestCase(" ")]
         [TestCase("")]
@@ -124,5 +131,14 @@ namespace UnitTestingProject_UnitTests
         {
             _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate), Times.Never);
         }
+        private void VerifyEmailSent()
+        {
+            _emailSender.Verify(x => x.EmailFile(_houseKeeper.Email, _houseKeeper.StatementEmailBody, _statementFileName, It.IsAny<string>()));
+        }
+        private void VerifyStatementGenerated()
+        {
+            _statementGenerator.Verify(x => x.SaveStatement(_houseKeeper.Oid, _houseKeeper.FullName, _statementDate));
+        }
+
     }
 }
